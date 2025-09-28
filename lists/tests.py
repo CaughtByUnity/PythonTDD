@@ -5,15 +5,14 @@ from lists.views import home_page
 # Create your tests here.
 class HomePageTest(TestCase):
     def test_uses_home_template(self):
-        '''тест: домашняя страница возвращает корректный html'''
+        '''тест: используется домашний шаблон'''
         # передаём в self.client.get адрес, который хотим протестировать
         response = self.client.get('/')
-        # извлекаем содержимое .content отклика, конвертируя их в html кодировки utf8 при помощи .decode
-        html = response.content.decode('utf8')
-        # Проверка, что полученная html-строка начинается с тэга <html>
-        self.assertTrue(html.startswith('<html>'))
-        # Проверяем правильность содержимого <title>
-        self.assertIn('<title>To-Do lists</title>', html)
-        # Проверка, что полученная html-строка заканчивается тэгом </html>
-        self.assertTrue(html.endswith('</html>'))
+        self.assertTemplateUsed(response, 'home.html')
+
+    def test_can_saave_a_POST_request(self):
+        '''тест: можно сохранить post-запрос'''
+        # Вызываем self.client.post для выполнения post-запроса
+        response = self.client.post('/', data={'item_text': 'A new list item'})
+        self.assertIn('A new list item', response.content.decode())
         self.assertTemplateUsed(response, 'home.html')
