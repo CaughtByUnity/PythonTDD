@@ -6,7 +6,7 @@ class NewVisitorTest(unittest.TestCase):
     '''тест нового посетителя'''
     def setUp(self):
         '''установка'''
-        service = Service('/home/caughtbyunity/PycharmProjects/PythonTDD/chromedriver')q
+        service = Service('/home/caughtbyunity/PycharmProjects/PythonTDD/chromedriver')
         self.browser = webdriver.Chrome(service=service)
 
     def TearDown(self):
